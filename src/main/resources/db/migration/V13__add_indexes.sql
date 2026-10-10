@@ -1,0 +1,13 @@
+CREATE INDEX idx_events_user_start ON events (user_id, start_date_time);
+CREATE INDEX idx_events_user_status ON events (user_id, status);
+CREATE INDEX idx_tasks_event_status ON tasks (event_id, status);
+CREATE INDEX idx_tasks_event_due ON tasks (event_id, due_at);
+CREATE INDEX idx_expenses_event ON expenses (event_id);
+CREATE INDEX idx_travel_event_departure ON travel (event_id, departure_at);
+CREATE INDEX idx_calendar_connections_user_provider ON calendar_connections (user_id, provider);
+CREATE INDEX idx_calendar_event_mappings_event ON calendar_event_mappings (event_id);
+CREATE INDEX idx_reminders_due ON reminders (status, reminder_at);
+CREATE INDEX idx_notifications_user_created ON notifications (user_id, created_at);
+CREATE INDEX idx_payments_expense ON payments (expense_id);
+CREATE INDEX idx_documents_owner ON documents (owner_user_id);
+CREATE INDEX idx_documents_event ON documents (event_id);

@@ -1,0 +1,40 @@
+CREATE TABLE external_account_connections (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    provider VARCHAR(32) NOT NULL,
+    external_account_id VARCHAR(255) NULL,
+    email VARCHAR(255) NULL,
+    access_token_encrypted TEXT NULL,
+    refresh_token_encrypted TEXT NULL,
+    token_expires_at DATETIME(6) NULL,
+    scopes VARCHAR(1000) NULL,
+    status VARCHAR(32) NOT NULL,
+    created_at DATETIME(6) NOT NULL,
+    updated_at DATETIME(6) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_external_accounts_user_provider (user_id, provider),
+    CONSTRAINT fk_external_accounts_user FOREIGN KEY (user_id) REFERENCES users (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE calendar_connections (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    uuid CHAR(36) NOT NULL,
+    user_id BIGINT NOT NULL,
+    external_account_id BIGINT NULL,
+    provider VARCHAR(32) NOT NULL,
+    external_calendar_id VARCHAR(255) NULL,
+    calendar_name VARCHAR(255) NULL,
+    is_default TINYINT(1) NOT NULL DEFAULT 0,
+    enabled TINYINT(1) NOT NULL DEFAULT 1,
+    feed_token CHAR(64) NULL,
+    sync_token TEXT NULL,
+    last_synced_at DATETIME(6) NULL,
+    sync_status VARCHAR(32) NOT NULL,
+    created_at DATETIME(6) NOT NULL,
+    updated_at DATETIME(6) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_calendar_connections_uuid (uuid),
+    UNIQUE KEY uk_calendar_connections_feed (feed_token),
+    CONSTRAINT fk_calendar_connections_user FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT fk_calendar_connections_account FOREIGN KEY (external_account_id) REFERENCES external_account_connections (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

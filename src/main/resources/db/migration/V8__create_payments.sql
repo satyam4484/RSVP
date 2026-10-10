@@ -1,0 +1,20 @@
+CREATE TABLE payments (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    uuid CHAR(36) NOT NULL,
+    expense_id BIGINT NOT NULL,
+    amount DECIMAL(19, 4) NOT NULL,
+    currency CHAR(3) NOT NULL,
+    payment_date DATE NOT NULL,
+    payment_method VARCHAR(32) NOT NULL,
+    reference VARCHAR(150) NULL,
+    notes TEXT NULL,
+    created_at DATETIME(6) NOT NULL,
+    updated_at DATETIME(6) NOT NULL,
+    created_by BIGINT NULL,
+    updated_by BIGINT NULL,
+    deleted TINYINT(1) NOT NULL DEFAULT 0,
+    deleted_at DATETIME(6) NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_payments_uuid (uuid),
+    CONSTRAINT fk_payments_expense FOREIGN KEY (expense_id) REFERENCES expenses (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

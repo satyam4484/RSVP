@@ -1,0 +1,23 @@
+CREATE TABLE contacts (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    uuid CHAR(36) NOT NULL,
+    user_id BIGINT NOT NULL,
+    name VARCHAR(200) NOT NULL,
+    phone VARCHAR(32) NOT NULL,
+    normalized_phone VARCHAR(20) NOT NULL,
+    email VARCHAR(255) NULL,
+    company_name VARCHAR(200) NULL,
+    type VARCHAR(32) NOT NULL,
+    notes TEXT NULL,
+    created_at DATETIME(6) NOT NULL,
+    updated_at DATETIME(6) NOT NULL,
+    created_by BIGINT NULL,
+    updated_by BIGINT NULL,
+    deleted TINYINT(1) NOT NULL DEFAULT 0,
+    deleted_at DATETIME(6) NULL,
+    deleted_marker BIGINT NOT NULL DEFAULT 0,
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_contacts_uuid (uuid),
+    UNIQUE KEY uk_contacts_user_phone (user_id, normalized_phone, deleted_marker),
+    CONSTRAINT fk_contacts_user FOREIGN KEY (user_id) REFERENCES users (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
