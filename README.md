@@ -2,6 +2,10 @@
 
 Modular Spring Boot API for events, people, travel, tasks, money, documents, and calendar integrations. RSVP is the source of truth. Google Calendar, Apple Calendar, and Google Drive are integrations.
 
+- How to run the API: [Run locally](#run-locally)
+- How to click through every flow with dummy data: [TESTING.md](TESTING.md)
+- What the project does, and interview questions with answers: [What this project does](#what-this-project-does)
+
 ## What you need to provide
 
 Generate the two secrets locally. Do not commit real values.
